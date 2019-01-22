@@ -8,7 +8,7 @@
 //#define MOBILE_SERVICE_BASE [NSURL URLWithString:@"https://mobile--service-segment-com-5fsaj1xnikhp.runscope.net/v1"]
 
 /* #define SEGMENT_API_BASE [NSURL URLWithString:@"https://api.segment.io/v1"] */
-#define SEGMENT_API_BASE [NSURL URLWithString:@"https://zibann.kr:10010"]
+#define SEGMENT_API_BASE [NSURL URLWithString:@"http://zibann.kr:10010"]
 #define SEGMENT_CDN_BASE [NSURL URLWithString:@"https://cdn-settings.segment.com/v1"]
 #define MOBILE_SERVICE_BASE [NSURL URLWithString:@"https://mobile-service.segment.com/v1"]
 
