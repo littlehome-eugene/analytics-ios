@@ -63,8 +63,8 @@
     if (!session) {
         NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
         config.HTTPAdditionalHeaders = @{
-            @"Accept-Encoding" : @"application/json",
-            @"Content-Encoding" : @"application/json",
+            // @"Accept-Encoding" : @"application/json",
+            // @"Content-Encoding" : @"application/json",
             @"Content-Type" : @"application/json",
             @"Authorization" : [@"Basic " stringByAppendingString:[[self class] authorizationHeader:writeKey]],
             @"User-Agent" : [NSString stringWithFormat:@"analytics-ios/%@", [SEGAnalytics version]],
@@ -173,6 +173,7 @@
     NSData *payload = nil;
     @try {
         payload = [NSJSONSerialization dataWithJSONObject:batch options:0 error:&error];
+
     }
     @catch (NSException *exc) {
         exception = exc;

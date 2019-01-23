@@ -551,7 +551,7 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
     SEGLog(@"%@ Flushing %lu of %lu queued API calls.", self, (unsigned long)batch.count, (unsigned long)self.queue.count);
     SEGLog(@"Flushing batch %@.", payload);
 
-    self.batchRequest = [self.httpClient upload:payload forWriteKey:self.configuration.writeKey completionHandler:^(BOOL retry) {
+    self.batchRequest = [self.httpClient uploadLittlehome:payload forWriteKey:self.configuration.writeKey completionHandler:^(BOOL retry) {
         [self dispatchBackground:^{
             if (retry) {
                 [self notifyForName:SEGSegmentRequestDidFailNotification userInfo:batch];
@@ -568,26 +568,25 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
         }];
     }];
 
+    // doesn't work because of start / endBackgroundTask mayybe?
+    // self.batchRequest2 = [self.httpClient2 uploadLittlehome:payload forWriteKey:self.configuration.writeKey completionHandler:^(BOOL retry) {
+    //     [self dispatchBackground:^{
+    //         if (retry) {
+    //             [self notifyForName:SEGSegmentRequestDidFailNotification userInfo:batch];
+    //             self.batchRequest2 = nil;
+    //             [self endBackgroundTask];
+    //             return;
+    //         }
+
+    //         [self.queue removeObjectsInArray:batch];
+    //         [self persistQueue];
+    //         [self notifyForName:SEGSegmentRequestDidSucceedNotification userInfo:batch];
+    //         self.batchRequest2 = nil;
+    //         [self endBackgroundTask];
+    //     }];
+    // }];
+
     [self notifyForName:SEGSegmentDidSendRequestNotification userInfo:batch];
-
-    self.batchRequest2 = [self.httpClient2 uploadLittlehome:payload forWriteKey:self.configuration.writeKey completionHandler:^(BOOL retry) {
-        [self dispatchBackground:^{
-            if (retry) {
-                [self notifyForName:SEGSegmentRequestDidFailNotification userInfo:batch];
-                self.batchRequest2 = nil;
-                [self endBackgroundTask];
-                return;
-            }
-
-            [self.queue removeObjectsInArray:batch];
-            [self persistQueue];
-            [self notifyForName:SEGSegmentRequestDidSucceedNotification userInfo:batch];
-            self.batchRequest2 = nil;
-            [self endBackgroundTask];
-        }];
-    }];
-
-    // [self notifyForName:SEGSegmentDidSendRequestNotification userInfo:batch];
 
 }
 
