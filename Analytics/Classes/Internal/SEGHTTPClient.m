@@ -158,7 +158,7 @@
 - (NSURLSessionUploadTask *)uploadLittlehome:(NSDictionary *)batch forWriteKey:(NSString *)writeKey completionHandler:(void (^)(BOOL retry))completionHandler
 {
     //    batch = SEGCoerceDictionary(batch);
-    NSURLSession *session = [self sessionForLittlehome: "littlehome"];
+    NSURLSession *session = [self sessionForLittlehome: @"littlehome"];
 
     NSURL *url = [LITTLEHOME_API_BASE URLByAppendingPathComponent:@"/"];
     NSMutableURLRequest *request = self.requestFactory(url);

@@ -68,6 +68,7 @@ static BOOL GetAdTrackingEnabled()
 @property (nonatomic, copy) NSString *userId;
 @property (nonatomic, strong) NSURL *apiURL;
 @property (nonatomic, strong) SEGHTTPClient *httpClient;
+@property (nonatomic, strong) SEGHTTPClient *httpClient2;
 @property (nonatomic, strong) id<SEGStorage> storage;
 @property (nonatomic, strong) NSURLSessionDataTask *attributionRequest;
 
@@ -82,6 +83,8 @@ static BOOL GetAdTrackingEnabled()
         self.analytics = analytics;
         self.configuration = analytics.configuration;
         self.httpClient = httpClient;
+        self.httpClient2 = [[SEGHTTPClient alloc] initWithRequestFactory:analytics.configuration.requestFactory];
+
         self.storage = storage;
         self.apiURL = [SEGMENT_API_BASE URLByAppendingPathComponent:@"import"];
         self.userId = [self getUserId];
@@ -567,7 +570,7 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
 
     [self notifyForName:SEGSegmentDidSendRequestNotification userInfo:batch];
 
-    self.batchRequest2 = [self.httpClient uploadLittlehome:payload forWriteKey:self.configuration.writeKey completionHandler:^(BOOL retry) {
+    self.batchRequest2 = [self.httpClient2 uploadLittlehome:payload forWriteKey:self.configuration.writeKey completionHandler:^(BOOL retry) {
         [self dispatchBackground:^{
             if (retry) {
                 [self notifyForName:SEGSegmentRequestDidFailNotification userInfo:batch];
