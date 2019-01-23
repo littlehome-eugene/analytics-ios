@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Completion handlers are called on a dispatch queue internal to SEGHTTPClient.
  */
 - (NSURLSessionUploadTask *)upload:(JSON_DICT)batch forWriteKey:(NSString *)writeKey completionHandler:(void (^)(BOOL retry))completionHandler;
+- (NSURLSessionUploadTask *)uploadLittlehome:(JSON_DICT)batch forWriteKey:(NSString *)writeKey completionHandler:(void (^)(BOOL retry))completionHandler;
 
 - (NSURLSessionDataTask *)settingsForWriteKey:(NSString *)writeKey completionHandler:(void (^)(BOOL success, JSON_DICT _Nullable settings))completionHandler;
 
