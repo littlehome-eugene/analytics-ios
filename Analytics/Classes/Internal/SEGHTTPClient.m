@@ -92,6 +92,7 @@
 //     NSURLSession *session = [self sessionForWriteKey:writeKey];
 
     NSURL *url = [LITTLEHOME_API_BASE URLByAppendingPathComponent:@"/"];
+    NSLog(url.absoluteString);
     NSMutableURLRequest *request = self.requestFactory(url);
 
     // This is a workaround for an IOS 8.3 bug that causes Content-Type to be incorrectly set
