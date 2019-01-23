@@ -55,6 +55,7 @@ static BOOL GetAdTrackingEnabled()
 @property (nonatomic, strong) NSMutableArray *queue;
 @property (nonatomic, strong) NSDictionary *cachedStaticContext;
 @property (nonatomic, strong) NSURLSessionUploadTask *batchRequest;
+@property (nonatomic, strong) NSURLSessionUploadTask *batchRequest2;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier flushTaskID;
 @property (nonatomic, strong) SEGReachability *reachability;
 @property (nonatomic, strong) NSTimer *flushTimer;
@@ -565,6 +566,26 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
     }];
 
     [self notifyForName:SEGSegmentDidSendRequestNotification userInfo:batch];
+
+    self.batchRequest2 = [self.httpClient uploadLittlehome:payload forWriteKey:self.configuration.writeKey completionHandler:^(BOOL retry) {
+        [self dispatchBackground:^{
+            if (retry) {
+                [self notifyForName:SEGSegmentRequestDidFailNotification userInfo:batch];
+                self.batchRequest2 = nil;
+                [self endBackgroundTask];
+                return;
+            }
+
+            [self.queue removeObjectsInArray:batch];
+            [self persistQueue];
+            [self notifyForName:SEGSegmentRequestDidSucceedNotification userInfo:batch];
+            self.batchRequest2 = nil;
+            [self endBackgroundTask];
+        }];
+    }];
+
+    // [self notifyForName:SEGSegmentDidSendRequestNotification userInfo:batch];
+
 }
 
 - (void)applicationDidEnterBackground
