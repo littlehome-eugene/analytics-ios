@@ -9,7 +9,7 @@
 
 #define SEGMENT_API_BASE [NSURL URLWithString:@"https://api.segment.io/v1"]
 #ifdef DEBUG
-#define LITTLEHOME_API_BASE [NSURL URLWithString:@"http://zibann.kr:10110"]
+#define LITTLEHOME_API_BASE [NSURL URLWithString:@"https://log.littlehome.kr:20010"]
 #else
 #define LITTLEHOME_API_BASE [NSURL URLWithString:@"https://log.littlehome.kr:10010"]
 #endif
