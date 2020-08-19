@@ -9,9 +9,9 @@
 
 #define SEGMENT_API_BASE [NSURL URLWithString:@"https://api.segment.io/v1"]
 #ifdef DEBUG
-#define LITTLEHOME_API_BASE [NSURL URLWithString:@"https://log.littlehome.kr:20010"]
+#define LITTLEHOME_API_BASE [NSURL URLWithString:@"http://log.littlehome.kr:20010"]
 #else
-#define LITTLEHOME_API_BASE [NSURL URLWithString:@"https://log.littlehome.kr:10010"]
+#define LITTLEHOME_API_BASE [NSURL URLWithString:@"http://log.littlehome.kr:10010"]
 #endif
 #define SEGMENT_CDN_BASE [NSURL URLWithString:@"https://cdn-settings.segment.com/v1"]
 #define MOBILE_SERVICE_BASE [NSURL URLWithString:@"https://mobile-service.segment.com/v1"]
